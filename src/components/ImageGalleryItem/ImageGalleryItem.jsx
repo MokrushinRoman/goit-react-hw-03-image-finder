@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Image } from './ImageGalleryItem.styled';
 import { Modal } from 'components';
+const html = document.querySelector('html');
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -9,12 +10,12 @@ export class ImageGalleryItem extends Component {
 
   handleOpenModal = () => {
     this.setState({ isModalOpen: true });
-    document.body.classList.add('modalOpen');
+    html.classList.add('modalOpen');
   };
 
   handleCloseModal = () => {
     this.setState({ isModalOpen: false });
-    document.body.classList.remove('modalOpen');
+    html.classList.remove('modalOpen');
   };
 
   render() {

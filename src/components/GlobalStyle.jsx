@@ -63,7 +63,7 @@ body {
 `;
 
 const customStyles = `
-body.modalOpen {
+html.modalOpen {
   overflow: hidden;
 }
 
