@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import { Item, List } from './ImageGallery.styled';
 import { ImageGalleryItem } from 'components';
 
