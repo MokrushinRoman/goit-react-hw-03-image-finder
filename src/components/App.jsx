@@ -6,6 +6,7 @@ import {
   Searchbar,
   ImageGallry,
   Button,
+  Loader,
 } from 'components';
 import { fetchImages } from 'services';
 import { errorToast } from 'helpers';
@@ -28,13 +29,19 @@ export class App extends Component {
       try {
         const { hits: incomeImages, totalHits: totalImages } =
           await fetchImages(currQuery, currPage);
-
-        this.setState(prevState => ({
-          images: [...prevState.images, ...incomeImages],
-          totalImages,
-        }));
+        if (totalImages < 1) {
+          errorToast('Nothing was found... Try againe');
+        } else {
+          this.setState(prevState => ({
+            images: [...prevState.images, ...incomeImages],
+            totalImages,
+          }));
+        }
       } catch (error) {
-        errorToast('Something went wrong... Please try againe later!');
+        errorToast(
+          'Something went wrong... Please try againe later and check error type in console!'
+        );
+        console.error(error.message);
       } finally {
         this.setState({ isLoading: false });
       }
@@ -46,7 +53,12 @@ export class App extends Component {
       return;
     }
 
-    this.setState({ query, images: [], page: 1, totalImages: null });
+    this.setState({
+      query,
+      images: [],
+      page: 1,
+      totalImages: null,
+    });
   };
 
   onLoadMore = () => {
@@ -54,7 +66,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, totalImages } = this.state;
+    const { images, totalImages, isLoading } = this.state;
 
     return (
       <>
@@ -70,6 +82,7 @@ export class App extends Component {
             {images.length < totalImages && (
               <Button loadMore={this.onLoadMore} />
             )}
+            {isLoading && <Loader />}
           </Layout>
         </main>
       </>
