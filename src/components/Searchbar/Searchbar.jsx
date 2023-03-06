@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -38,4 +39,8 @@ export const Searchbar = ({ onFormSubmit }) => {
       </Form>
     </Formik>
   );
+};
+
+Searchbar.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
 };
